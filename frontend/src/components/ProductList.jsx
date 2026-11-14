@@ -1,6 +1,6 @@
 import ProductCard from "./ProductCard";
 
-function ProductList({ products }) {
+function ProductList({ products, onChanged }) {
   if (products.length === 0) {
     return <p className="empty">No products found. Try another search 🐾</p>;
   }
@@ -8,7 +8,11 @@ function ProductList({ products }) {
   return (
     <div className="product-grid">
       {products.map((product) => (
-        <ProductCard key={product.id} product={product} />
+        <ProductCard
+          key={product._id}
+          product={product}
+          onChanged={onChanged}
+        />
       ))}
     </div>
   );

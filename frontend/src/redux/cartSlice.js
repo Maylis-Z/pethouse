@@ -10,25 +10,24 @@ const cartSlice = createSlice({
 
   reducers: {
     // Add a product or increase its quantity
-    addToCart: (state, action) => {
-      const product = action.payload;
+ addToCart: (state, action) => {
+  const product = action.payload;
+  const productId = product._id ?? product.id;
 
-      const existingItem = state.items.find(
-        (item) => item.id === product.id
-      );
+  const existingItem = state.items.find((item) => item.id === productId);
 
-      if (existingItem) {
-        existingItem.qty += 1;
-      } else {
-        state.items.push({
-  id: product.id,
-  name: product.name,
-  price: Number(product.price),
-  image: product.image,
-  qty: 1,
-});
-      }
-    },
+  if (existingItem) {
+    existingItem.qty += 1;
+  } else {
+    state.items.push({
+      id: productId,
+      name: product.name,
+      price: Number(product.price),
+      image: product.image,
+      qty: 1,
+    });
+  }
+},
     
 
     // Decrease product quantity
