@@ -1,11 +1,11 @@
-# PawPals DZ (Pet House) – Full-Stack E-Commerce
+# The PetHous – Full-Stack E-Commerce
 
 **Student:** Maylis Zerguini
 **Module:** WAMD – TD-TP 3 and TD-TP 4 (ENSTA)
 
 ## Application description
 
-PawPals DZ is an online pet shop. TD-TP 3 adds a REST API backend
+The PetHouseis an online pet shop. TD-TP 3 adds a REST API backend
 (Node.js, Express, MongoDB) with user registration, login, JWT
 authentication, OAuth 2.0 testing and rate limiting. TD-TP 4 connects the
 React frontend from TD-TP 2 to this API: products are loaded from MongoDB,
@@ -32,22 +32,22 @@ E-Commerce/
 
 **Product**
 
-| Field | Description |
-|-------|-------------|
-| name | Product name |
-| animal | dog, cat, bird, rabbit, fish, small |
-| type | food, toys, accessory, equipment, care |
-| price | Price in DA |
-| image | Image path |
-| description | Product description |
-| stock | Quantity in stock |
+| Field       | Description                            |
+| ----------- | -------------------------------------- |
+| name        | Product name                           |
+| animal      | dog, cat, bird, rabbit, fish, small    |
+| type        | food, toys, accessory, equipment, care |
+| price       | Price in DA                            |
+| image       | Image path                             |
+| description | Product description                    |
+| stock       | Quantity in stock                      |
 
 **User**
 
-| Field | Description |
-|-------|-------------|
-| name | Full name |
-| email | Unique email address |
+| Field    | Description                                           |
+| -------- | ----------------------------------------------------- |
+| name     | Full name                                             |
+| email    | Unique email address                                  |
 | password | Password stored as a bcrypt hash, never in plain text |
 
 Both collections are stored in the same MongoDB database and managed with Mongoose.
@@ -56,16 +56,16 @@ Both collections are stored in the same MongoDB database and managed with Mongoo
 
 Base URL: `http://localhost:5000/api`
 
-| Method | Endpoint | Purpose | Access |
-|--------|----------|---------|--------|
-| POST | /auth/register | Register a new user | Public |
-| POST | /auth/login | Log in and receive a JWT | Public (5 requests / 15 min) |
-| GET | /auth/me | Returns the authenticated user | JWT or OAuth 2.0 token |
-| GET | /products | Get all products | Public |
-| GET | /products/:id | Get one product | Public |
-| POST | /products | Create a product | JWT required |
-| PUT | /products/:id | Update a product | JWT required |
-| DELETE | /products/:id | Delete a product | JWT required |
+| Method | Endpoint       | Purpose                        | Access                       |
+| ------ | -------------- | ------------------------------ | ---------------------------- |
+| POST   | /auth/register | Register a new user            | Public                       |
+| POST   | /auth/login    | Log in and receive a JWT       | Public (5 requests / 15 min) |
+| GET    | /auth/me       | Returns the authenticated user | JWT or OAuth 2.0 token       |
+| GET    | /products      | Get all products               | Public                       |
+| GET    | /products/:id  | Get one product                | Public                       |
+| POST   | /products      | Create a product               | JWT required                 |
+| PUT    | /products/:id  | Update a product               | JWT required                 |
+| DELETE | /products/:id  | Delete a product               | JWT required                 |
 
 Status codes used: 200, 201, 400, 401, 404, 409, 429, 500.
 Errors are returned as JSON: `{ "message": "..." }`.
@@ -108,21 +108,25 @@ When a limit is exceeded, the API returns 429 Too Many Requests.
 Requirements: Node.js 18 or newer, and a MongoDB Atlas account.
 
 **Backend**
+
 ```
 cd backend
 npm install
 copy .env.example .env
 npm run dev
 ```
+
 The API runs on `http://localhost:5000`.
 
 **Frontend**
+
 ```
 cd frontend
 npm install
 copy .env.example .env
 npm run dev
 ```
+
 The app runs on `http://localhost:5173` (the backend allows this origin through CORS).
 
 ## MongoDB and environment variables
@@ -133,6 +137,7 @@ The app runs on `http://localhost:5173` (the backend allows this origin through 
 4. Copy the connection string into `backend/.env` and add your database name.
 
 `backend/.env`:
+
 ```
 PORT=5000
 MONGO_URI=your_mongodb_connection_string
@@ -140,6 +145,7 @@ JWT_SECRET=replace_with_a_local_secret
 ```
 
 `frontend/.env`:
+
 ```
 VITE_API_URL=http://localhost:5000
 ```
