@@ -2,7 +2,6 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { addToCart } from "../redux/cartSlice";
-import api from "../api";
 
 const placeholders = {
   dog: "🐶",
@@ -12,7 +11,7 @@ const placeholders = {
   fish: "🐟",
 };
 
-function ProductCard({ product, onChanged }) {
+function ProductCard({ product }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -39,17 +38,6 @@ function ProductCard({ product, onChanged }) {
 
     dispatch(addToCart(product));
     setShowMessage(true);
-  };
-
-  const handleDelete = async () => {
-    if (!window.confirm(`Delete "${product.name}"?`)) return;
-
-    try {
-      await api.delete(`/products/${product._id}`);
-      onChanged?.();
-    } catch (err) {
-      alert(err.response?.data?.message || "Could not delete the product.");
-    }
   };
 
   return (
@@ -81,20 +69,9 @@ function ProductCard({ product, onChanged }) {
           </span>
 
           <button className="add-btn" onClick={handleBuy}>
-            {isAuthenticated ? "Add +" : "buy"}
+            {isAuthenticated ? "Add +" : "Buy"}
           </button>
         </div>
-
-        {isAuthenticated && (
-          <div className="card-admin">
-            <button onClick={() => navigate(`/products/${product._id}/edit`)}>
-              Edit
-            </button>
-            <button className="danger" onClick={handleDelete}>
-              Delete
-            </button>
-          </div>
-        )}
 
         {showMessage && <p className="added-message">✓ Added to cart!</p>}
       </div>

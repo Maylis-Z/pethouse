@@ -1,6 +1,5 @@
 import { useState, useEffect, useCallback } from "react";
-import { useSelector } from "react-redux";
-import { Routes, Route, Link } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 
 import Navbar from "./components/Navbar";
 import Hero from "./components/Hero";
@@ -8,7 +7,6 @@ import CategoryFilter from "./components/CategoryFilter";
 import ProductList from "./components/ProductList";
 import Login from "./pages/login-tmp";
 import Register from "./pages/register-tmp";
-import ProductForm from "./pages/ProductForm.jsx";
 import api from "./api";
 
 const animalOptions = [
@@ -39,8 +37,6 @@ function App() {
 
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
-
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated);
 
   // Fetch products from MongoDB through the backend
   const fetchProducts = useCallback(async () => {
@@ -116,12 +112,6 @@ function App() {
               <main id="products" className="products">
                 <h2 className="section-title">Our products</h2>
 
-                {isAuthenticated && (
-                  <Link to="/products/new" className="add-product-btn">
-                    + Add product
-                  </Link>
-                )}
-
                 {loading && <p>Loading products...</p>}
                 {error && <p className="error-message">{error}</p>}
 
@@ -130,10 +120,7 @@ function App() {
                 )}
 
                 {!loading && !error && products.length > 0 && (
-                  <ProductList
-                    products={filteredProducts}
-                    onChanged={fetchProducts}
-                  />
+                  <ProductList products={filteredProducts} />
                 )}
               </main>
             </>
@@ -142,14 +129,6 @@ function App() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route
-          path="/products/new"
-          element={<ProductForm onSaved={fetchProducts} />}
-        />
-        <Route
-          path="/products/:id/edit"
-          element={<ProductForm onSaved={fetchProducts} />}
-        />
       </Routes>
     </>
   );
